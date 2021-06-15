@@ -6,7 +6,7 @@
 /*   By: ciglesia <ciglesia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 13:28:32 by ciglesia          #+#    #+#             */
-/*   Updated: 2021/06/15 14:29:57 by ciglesia         ###   ########.fr       */
+/*   Updated: 2021/06/15 14:45:08 by ciglesia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 **
 **	The main program has to link both the libraries and
 **	it's important to link lib1 after lib2 when lib2 depends on lib1.
+**	example:
+**	gcc -I include main.c libstd.a ../libstring/libstring.a
 */
 
 # define BUFF_SIZE 6
