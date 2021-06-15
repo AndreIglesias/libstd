@@ -6,11 +6,12 @@
 /*   By: ciglesia <ciglesia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/09 18:51:07 by ciglesia          #+#    #+#             */
-/*   Updated: 2021/06/14 23:06:22 by ciglesia         ###   ########.fr       */
+/*   Updated: 2021/06/15 14:30:39 by ciglesia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "libstd.h"
+#include "str.h"
 
 static char	*ft_fstrdup(const char *s1, char *pitcher)
 {
@@ -39,7 +40,7 @@ static char	*fill_pitcher(const int fd, char *pitcher)
 	char	guacal[BUFF_SIZE + 1];
 	int		last;
 
-	if (fd < 0 || BUFF_SIZE < 1 || read(fd, guacal, 0))
+	if (fd < 0 || BUFF_SIZE < 1 || ft_read(fd, guacal, 0))
 		return (0);
 	if (pitcher == NULL)
 		pitcher = ft_strnew(1);

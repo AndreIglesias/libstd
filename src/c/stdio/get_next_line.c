@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ciglesia <ciglesia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jiglesia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/08/13 20:46:31 by ciglesia          #+#    #+#             */
-/*   Updated: 2021/06/14 23:05:15 by ciglesia         ###   ########.fr       */
+/*   Created: 2019/11/12 13:43:51 by jiglesia          #+#    #+#             */
+/*   Updated: 2021/06/15 14:36:11 by ciglesia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libstd.h"
+#include "str.h"
 
 static char	*ft_fstrdup(const char *s1, char *pitcher)
 {
@@ -20,7 +21,7 @@ static char	*ft_fstrdup(const char *s1, char *pitcher)
 	i = 0;
 	while (s1[i])
 		i++;
-	str = (char*)malloc(sizeof(char) * (i + 1));
+	str = (char *)malloc(sizeof(char) * (i + 1));
 	if (!str)
 		return (NULL);
 	str[i] = '\0';
@@ -39,10 +40,10 @@ static char	*fill_pitcher(const int fd, char *pitcher)
 	char	guacal[BUFF_SIZE + 1];
 	int		last;
 
-	if (fd < 0 || BUFF_SIZE < 1 || read(fd, guacal, 0))
+	if (fd < 0 || BUFF_SIZE < 1 || ft_read(fd, guacal, 0))
 		return (0);
 	if (pitcher == NULL)
-		pitcher = ft_strnew(1);
+		pitcher = ft_strdup("");
 	while (!(ft_strchr(pitcher, '\n')))
 	{
 		last = ft_read(fd, guacal, BUFF_SIZE);
@@ -56,29 +57,36 @@ static char	*fill_pitcher(const int fd, char *pitcher)
 	return (pitcher);
 }
 
-int			get_next_line(const int fd, char **line)
+int	fill_line(int carret, char **pitcher, char *tmp, char **line)
+{
+	*line = ft_strndup(*pitcher, carret);
+	if (!(*line))
+		return (-1);
+	(*pitcher) = ft_fstrdup(tmp + 1, (*pitcher));
+	return (1);
+}
+
+int	get_next_line(const int fd, char **line)
 {
 	static char	*pitcher;
 	char		*tmp;
-	int			carret;
 
-	if (!line || !(pitcher = fill_pitcher(fd, pitcher)))
+	if (!line)
 		return (-1);
-	if ((tmp = ft_strchr(pitcher, '\n')) != 0)
-	{
-		carret = tmp - pitcher;
-		if (!(*line = ft_strndup(pitcher, carret)))
-			return (-1);
-		pitcher = ft_fstrdup(tmp + 1, pitcher);
-		return (1);
-	}
+	pitcher = fill_pitcher(fd, pitcher);
+	if (!pitcher)
+		return (-1);
+	tmp = ft_strchr(pitcher, '\n');
+	if (tmp != 0)
+		return (fill_line(tmp - pitcher, &pitcher, tmp, line));
 	else
 	{
-		if (!(*line = ft_strdup(pitcher)))
+		*line = ft_strdup(pitcher);
+		if (!(*line))
 			return (-1);
 		free(pitcher);
 		pitcher = NULL;
-		if (*line[0] == '\0')
+		if ((*line)[0] == '\0')
 			return (0);
 		return (1);
 	}

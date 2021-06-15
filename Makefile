@@ -6,7 +6,7 @@
 #    By: ciglesia <ciglesia@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/20 22:37:03 by ciglesia          #+#    #+#              #
-#    Updated: 2021/06/14 22:53:28 by ciglesia         ###   ########.fr        #
+#    Updated: 2021/06/15 14:21:40 by ciglesia         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -28,7 +28,7 @@ DIRPFA		=	$(DIRPF)/aux
 
 #***************** SRC ********************#
 
-SRCIO		=	ft_repet.c ft_putchar.c ft_putchar_fd.c ft_putnbr.c ft_putnbr_fd.c ft_putnbr_max.c ft_putstr_fd.c ft_putstr.c ft_puterr.c
+SRCIO		=	ft_repet.c ft_putchar.c ft_putchar_fd.c ft_putnbr.c ft_putnbr_fd.c ft_putnbr_max.c ft_putstr_fd.c ft_putstr.c ft_puterr.c ft_repet_fd.c get_next_line.c get_next_line2.c
 SRCLIB		=	ft_abs.c ft_atoi.c ft_atoi_protected.c ft_itoa.c
 
 SRCPF		=	caster.c ft_printf.c ft_vfprintf.c id_format.c interpreter.c manipulation.c printform.c
@@ -55,7 +55,7 @@ CFLAGS		=
 CFLAGS		=	-Wall -Wextra -Werror -ansi -pedantic -g
 	endif
 else
-CFLAGS		=	-Wall -Wextra -Werror
+CFLAGS		=	-Wall -Wextra -Werror -fPIC
 endif
 
 OS			=	$(shell uname)

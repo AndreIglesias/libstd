@@ -6,7 +6,7 @@
 /*   By: ciglesia <ciglesia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/28 17:41:34 by ciglesia          #+#    #+#             */
-/*   Updated: 2021/06/15 02:35:47 by ciglesia         ###   ########.fr       */
+/*   Updated: 2021/06/15 13:29:09 by ciglesia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,14 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdint.h>
-# include "libstring.h"
+# include "libstd.h"
+# include "str.h"
+
 /*
 **  # 0 + - <space>
 **  if with or precision < 0 -> position
 */
+
 typedef struct		s_flags
 {
 	int				square;
@@ -67,14 +70,6 @@ int					di_lenp(long long int lg, t_flags flags);
 intmax_t			get_int(t_flags flags, va_list ap);
 uintmax_t			flags_uoxx(t_flags flags, va_list ap);
 
-t_intmax_t			ft_abs(t_intmax_t x);
-int					ft_atoi(const char *str);
-int					ft_countchr(const char *s, int c);
-int					ft_strcmp(const char *s1, const char *s2);
-char				*ft_strcpy(char *dst, const char *src);
-int					ft_putnbr_max(t_uintmax_t nb, int fd);
-int					ft_putchar_fd(char c, const int fd);
-int					ft_strlen(char *str);
 char				*ft_strrevf(char *str, int size);
 int					print_address(unsigned long p, t_flags flags, int size,
 													int npre);
@@ -84,4 +79,5 @@ int					ft_putoxx(t_flags flags, char *s, int n, int b);
 int					ft_repet_fd(char c, int i, int fd);
 int					ft_putwidth(intmax_t lg, t_flags flags, uintmax_t x, int p);
 int					put_wchar(char c, t_flags flags);
+
 #endif

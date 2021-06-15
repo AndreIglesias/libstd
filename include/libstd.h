@@ -6,7 +6,7 @@
 /*   By: ciglesia <ciglesia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 18:51:02 by ciglesia          #+#    #+#             */
-/*   Updated: 2021/06/14 22:14:42 by ciglesia         ###   ########.fr       */
+/*   Updated: 2021/06/15 14:21:12 by ciglesia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ ssize_t		ft_read(int fd, void *buf, size_t count);
 int			ft_printf_fd(const int fd, const char *format, ...);
 int			ft_printf(const char *format, ...);
 int			ft_repet(char c, int i);
+int			ft_repet_fd(char c, int i, const int fd);
 int			ft_putchar_fd(char c, int fd);
 int			ft_putchar(char c);
 void		ft_putnbr(int nb);
@@ -99,6 +100,8 @@ int			ft_putnbr_max(t_uintmax_t x, int fd);
 int			ft_puterr(const char *s, int ex);
 int			ft_putstr(const char *str);
 int			ft_putstr_fd(const char *s, int fd);
+int			get_next_line(const int fd, char **line);
+int			get_next_line2(const int fd, char **line, char **pitcher);
 
 /*
 **		stdlib
