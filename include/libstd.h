@@ -6,12 +6,23 @@
 /*   By: ciglesia <ciglesia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 18:51:02 by ciglesia          #+#    #+#             */
-/*   Updated: 2021/06/15 14:21:12 by ciglesia         ###   ########.fr       */
+/*   Updated: 2021/06/15 15:54:00 by ciglesia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBSTD_H
 # define LIBSTD_H
+
+# include <sys/types.h>
+
+/*
+**	#define __SSIZE_T_TYPE		__SWORD_TYPE
+**	__STD_TYPE __SSIZE_T_TYPE __ssize_t;
+*/
+
+/*
+**	malloc
+*/
 
 # include <stdlib.h>
 
