@@ -1,2 +1,2 @@
-# libstdio
-Library of useful C stdio library functions
+# libstring
+Library of useful C string library functions
