@@ -6,7 +6,7 @@
 #    By: ciglesia <ciglesia@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/20 22:37:03 by ciglesia          #+#    #+#              #
-#    Updated: 2021/06/15 14:21:40 by ciglesia         ###   ########.fr        #
+#    Updated: 2021/06/15 15:59:45 by ciglesia         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -38,7 +38,7 @@ SRCC		=	$(SRCIO) $(SRCLIB) $(SRCPF) $(SRCPFA)
 
 SRCASM		=	ft_read.s ft_write.s
 
-#***************** DEPS ******************#
+#***************** DEPS *******************#
 
 DIROBJ		=	./depo/
 

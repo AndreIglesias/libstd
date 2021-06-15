@@ -6,7 +6,7 @@
 /*   By: ciglesia <ciglesia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 18:51:02 by ciglesia          #+#    #+#             */
-/*   Updated: 2021/06/15 15:54:00 by ciglesia         ###   ########.fr       */
+/*   Updated: 2021/06/15 16:13:17 by ciglesia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,33 @@ __extension__ typedef unsigned long long int	t__uintmax_t;
 
 typedef t__intmax_t								t_intmax_t;
 typedef t__uintmax_t							t_uintmax_t;
+
+# define BOLD "\e[1m"
+# define DIM "\e[2m"
+# define ITALIC "\e[3m"
+# define UNDERL "\e[4m"
+# define BLINK "\e[5m"
+# define REVER "\e[7m"
+# define INVIS "\e[8m"
+# define RED "\e[38;2;255;0;0m"
+# define BLACK "\e[38;2;0;0;0m"
+# define CEL "\e[38;2;114;159;207m"
+# define GREEN "\e[92m"
+# define CYAN "\e[38;5;31m"
+# define BLUE "\e[34m"
+# define YELLOW "\e[33m"
+# define BLACKB "\e[40m"
+# define GRAY "\e[38;5;236m"
+# define LIGHT_GRAY "\e[90m"
+
+# define BG_LIGHT_GRAY "\e[100m"
+# define BG_CYAN "\e[48;5;31m"
+# define BG_GRAY "\e[48;5;236m"
+# define BG_E0M "\e[49m"
+# define COLOR_E0M "\e[39m"
+# define E0M "\e[0m"
+# define LOCK "\uE0A2"
+# define ARROW "\uE0B0"
 
 /*
 **	ASM
