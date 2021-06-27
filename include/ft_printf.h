@@ -6,7 +6,7 @@
 /*   By: ciglesia <ciglesia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/28 17:41:34 by ciglesia          #+#    #+#             */
-/*   Updated: 2021/06/15 13:29:09 by ciglesia         ###   ########.fr       */
+/*   Updated: 2021/06/27 17:48:41 by ciglesia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 **  if with or precision < 0 -> position
 */
 
-typedef struct		s_flags
+typedef struct s_flags
 {
 	int				square;
 	int				zero;
@@ -44,14 +44,17 @@ typedef struct		s_flags
 	int				fd;
 }					t_flags;
 
-typedef struct		s_fdi
+typedef struct s_fdi
 {
 	int				i;
 	int				fd;
 }					t_fdi;
 
-int					ft_printf_fd(const int fd, const char *format, ...);
-int					ft_printf(const char *format, ...);
+int					ft_printf_fd(const int fd, const char *format, ...)
+					__attribute__((format(printf, 2, 3)));
+int					ft_printf(const char *format, ...)
+					__attribute__((format(printf, 1, 2)));
+
 int					ft_vfprintf(const char *format, va_list ap, int fd);
 t_flags				ft_flags(const char *format, t_flags flags);
 t_flags				ft_modifiers(const char *format, t_flags flags, int i);
@@ -72,7 +75,7 @@ uintmax_t			flags_uoxx(t_flags flags, va_list ap);
 
 char				*ft_strrevf(char *str, int size);
 int					print_address(unsigned long p, t_flags flags, int size,
-													int npre);
+						int npre);
 char				*ft_itoa_basexx(uintmax_t value, int base, int mayus);
 int					ft_putdbl(long double d, t_flags flags);
 int					ft_putoxx(t_flags flags, char *s, int n, int b);
