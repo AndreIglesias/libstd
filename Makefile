@@ -6,13 +6,15 @@
 #    By: ciglesia <ciglesia@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/20 22:37:03 by ciglesia          #+#    #+#              #
-#    Updated: 2021/06/15 22:15:38 by ciglesia         ###   ########.fr        #
+#    Updated: 2021/06/27 13:56:50 by ciglesia         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
 NAME		=	libstd.a
 
-INCLUDE		=	./include/
+INC			=	./include/
+
+INCLUDE		=	-I $(INC)
 
 #***************** DIR ********************#
 
@@ -79,24 +81,24 @@ E0M			=	 "\e[0m"
 #************************ DEPS COMPILATION *************************
 
 %.o		:		../$(DIRASM)/%.s
-				@printf $(GREEN)"Generating libelf asm objects... %-33.33s\r" $@
+				@printf $(GREEN)"Generating libstd asm objects... %-33.33s\r" $@
 				@$(NASM) $< -o $@
 
 %.o		:		../$(DIRIO)/%.c
-				@printf $(GREEN)"Generating libelf c objects... %-33.33s\r" $@
-				@$(CC) $(CFLAGS) -I $(INCLUDE) -MMD -o $@ -c $<
+				@printf $(GREEN)"Generating libstd c objects... %-33.33s\r" $@
+				@$(CC) $(CFLAGS) $(INCLUDE) -MMD -o $@ -c $<
 
 %.o		:		../$(DIRLIB)/%.c
-				@printf $(GREEN)"Generating libelf c objects... %-33.33s\r" $@
-				@$(CC) $(CFLAGS) -I $(INCLUDE) -MMD -o $@ -c $<
+				@printf $(GREEN)"Generating libstd c objects... %-33.33s\r" $@
+				@$(CC) $(CFLAGS) $(INCLUDE) -MMD -o $@ -c $<
 
 %.o		:		../$(DIRPF)/%.c
-				@printf $(GREEN)"Generating libelf c objects... %-33.33s\r" $@
-				@$(CC) $(CFLAGS) -I $(INCLUDE) -MMD -o $@ -c $<
+				@printf $(GREEN)"Generating libstd c objects... %-33.33s\r" $@
+				@$(CC) $(CFLAGS) $(INCLUDE) -MMD -o $@ -c $<
 
 %.o		:		../$(DIRPFA)/%.c
-				@printf $(GREEN)"Generating libelf c objects... %-33.33s\r" $@
-				@$(CC) $(CFLAGS) -I $(INCLUDE) -MMD -o $@ -c $<
+				@printf $(GREEN)"Generating libstd c objects... %-33.33s\r" $@
+				@$(CC) $(CFLAGS) $(INCLUDE) -MMD -o $@ -c $<
 
 #************************ MAIN COMPILATION *************************
 
@@ -117,11 +119,11 @@ fclean	:		clean
 				@$(RM) $(NAME)
 				@$(ECHO) $(BOLD)$(RED)'> Remove executable'$(E0M)
 
+re		:		fclean all
+
 apt		:
 				sudo apt install -y clang nasm
 
-re		:		fclean all
-
-.PHONY	:		all clean re
+.PHONY	:		all clean fclean re apt
 
 -include $(DEPS)
