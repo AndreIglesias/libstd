@@ -6,7 +6,7 @@
 /*   By: ciglesia <ciglesia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 18:51:02 by ciglesia          #+#    #+#             */
-/*   Updated: 2021/06/15 16:13:17 by ciglesia         ###   ########.fr       */
+/*   Updated: 2021/06/27 19:02:42 by ciglesia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,8 +126,11 @@ ssize_t		ft_read(int fd, void *buf, size_t count);
 **		stdio
 */
 
-int			ft_printf_fd(const int fd, const char *format, ...);
-int			ft_printf(const char *format, ...);
+int			ft_printf_fd(const int fd, const char *format, ...)
+			__attribute__((format(printf, 2, 3)));
+int			ft_printf(const char *format, ...)
+			__attribute__((format(printf, 1, 2)));
+
 int			ft_repet(char c, int i);
 int			ft_repet_fd(char c, int i, const int fd);
 int			ft_putchar_fd(char c, int fd);

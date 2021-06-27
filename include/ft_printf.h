@@ -6,7 +6,7 @@
 /*   By: ciglesia <ciglesia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/28 17:41:34 by ciglesia          #+#    #+#             */
-/*   Updated: 2021/06/27 17:48:41 by ciglesia         ###   ########.fr       */
+/*   Updated: 2021/06/27 19:13:58 by ciglesia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,13 @@
 # include <stdint.h>
 # include "libstd.h"
 # include "str.h"
+
+# define PRINTF_TYPE(x) _Generic((x), char: "%c", signed char: "%hhd", \
+    unsigned char: "%hhu", signed short: "%hd", unsigned short: "%hu", \
+    signed int: "%d", unsigned int: "%u", long int: "%ld", \
+    unsigned long int: "%lu", long long int: "%lld", \
+    unsigned long long int: "%llu", float: "%f", double: "%f", \
+    long double: "%Lf", char *: "%s", void *: "%p")
 
 /*
 **  # 0 + - <space>
