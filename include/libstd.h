@@ -6,12 +6,25 @@
 /*   By: ciglesia <ciglesia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 18:51:02 by ciglesia          #+#    #+#             */
-/*   Updated: 2021/06/27 19:02:42 by ciglesia         ###   ########.fr       */
+/*   Updated: 2021/06/30 23:37:19 by ciglesia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBSTD_H
 # define LIBSTD_H
+
+/*
+**	functions dependent on libstring:
+**		ft_printf / ft_printf_fd
+**		get_next_line / get_next_line2
+**
+**	The main program has to link both the libraries and
+**	it's important to link lib1 after lib2 when lib2 depends on lib1.
+**	example:
+**	gcc -I include main.c libstd.a ../libstring/libstring.a
+*/
+
+# define BUFF_SIZE 6
 
 # include <sys/types.h>
 
@@ -40,17 +53,17 @@
 **	Convenience types.
 */
 
-typedef unsigned char							t__u_char;
-typedef unsigned short int						t__u_short;
-typedef unsigned int							t__u_int;
-typedef unsigned long int						t__u_long;
+typedef unsigned char							t_u_char;
+typedef unsigned short int						t_u_short;
+typedef unsigned int							t_u_int;
+typedef unsigned long int						t_u_long;
 
 # if __WORDSIZE == 64
-typedef signed long int							t__int64_t;
-typedef unsigned long int						t__uint64_t;
+typedef signed long int							t_int64_t;
+typedef unsigned long int						t_uint64_t;
 # else
-__extension__ typedef signed long long int		t__int64_t;
-__extension__ typedef unsigned long long int	t__uint64_t;
+__extension__ typedef signed long long int		t_int64_t;
+__extension__ typedef unsigned long long int	t_uint64_t;
 # endif
 
 /*
@@ -58,11 +71,11 @@ __extension__ typedef unsigned long long int	t__uint64_t;
 */
 
 # if __WORDSIZE == 64
-typedef long int								t__quad_t;
-typedef unsigned long int						t__u_quad_t;
+typedef long int								t_quad_t;
+typedef unsigned long int						t_u_quad_t;
 # else
-__extension__ typedef long long int				t__quad_t;
-__extension__ typedef unsigned long long int	t__u_quad_t;
+__extension__ typedef long long int				t_quad_t;
+__extension__ typedef unsigned long long int	t_u_quad_t;
 # endif
 
 /*
@@ -70,15 +83,12 @@ __extension__ typedef unsigned long long int	t__u_quad_t;
 */
 
 # if __WORDSIZE == 64
-typedef long int								t__intmax_t;
-typedef unsigned long int						t__uintmax_t;
+typedef long int								t_intmax_t;
+typedef unsigned long int						t_uintmax_t;
 # else
-__extension__ typedef long long int				t__intmax_t;
-__extension__ typedef unsigned long long int	t__uintmax_t;
+__extension__ typedef long long int				t_intmax_t;
+__extension__ typedef unsigned long long int	t_uintmax_t;
 # endif
-
-typedef t__intmax_t								t_intmax_t;
-typedef t__uintmax_t							t_uintmax_t;
 
 # define BOLD "\e[1m"
 # define DIM "\e[2m"

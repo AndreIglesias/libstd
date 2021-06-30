@@ -6,7 +6,7 @@
 #    By: ciglesia <ciglesia@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/20 22:37:03 by ciglesia          #+#    #+#              #
-#    Updated: 2021/06/27 13:56:50 by ciglesia         ###   ########.fr        #
+#    Updated: 2021/06/30 23:38:30 by ciglesia         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -14,7 +14,9 @@ NAME		=	libstd.a
 
 INC			=	./include/
 
-INCLUDE		=	-I $(INC)
+ROOTINC		=	../include/
+
+INCLUDE		=	-I $(INC) -I $(ROOTINC)
 
 #***************** DIR ********************#
 

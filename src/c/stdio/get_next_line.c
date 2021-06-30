@@ -6,12 +6,12 @@
 /*   By: jiglesia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 13:43:51 by jiglesia          #+#    #+#             */
-/*   Updated: 2021/06/15 14:36:11 by ciglesia         ###   ########.fr       */
+/*   Updated: 2021/06/30 23:38:45 by ciglesia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libstd.h"
-#include "str.h"
+#include "libstring.h"
 
 static char	*ft_fstrdup(const char *s1, char *pitcher)
 {
