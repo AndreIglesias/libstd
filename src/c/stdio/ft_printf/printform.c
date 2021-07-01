@@ -6,7 +6,7 @@
 /*   By: ciglesia <ciglesia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/05 16:37:42 by ciglesia          #+#    #+#             */
-/*   Updated: 2021/07/01 20:16:38 by ciglesia         ###   ########.fr       */
+/*   Updated: 2021/07/01 20:23:33 by ciglesia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,8 @@ int	print_arg(t_flags flags, va_list ap)
 
 	if (flags.type == 'f')
 	{
-		flags.precision = 6 + ((-6 + flags.precision) * (flags.precision >= 0));
+		if (flags.precision < 0)
+			flags.precision = 6;
 		if (flags.lo)
 			return (ft_putdbl(va_arg(ap, long double), flags));
 		return (ft_putdbl(va_arg(ap, double), flags));
