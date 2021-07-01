@@ -6,7 +6,7 @@
 /*   By: ciglesia <ciglesia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/05 03:22:40 by ciglesia          #+#    #+#             */
-/*   Updated: 2021/07/01 19:26:22 by ciglesia         ###   ########.fr       */
+/*   Updated: 2021/07/01 20:34:43 by ciglesia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,25 +69,25 @@ int	ft_putdbl(long double d, t_flags flags)
 	long long int	a;
 
 	nb = write(flags.fd, " ", (d >= 0 && !flags.plus && flags.space));
-	nb += write(flags.fd, "+", (d >= 0 && flags.zero) ? flags.plus : 0);
+	nb += write(flags.fd, "+", (d >= 0 && flags.zero) * flags.plus);
 	nb += write(flags.fd, "-", (d < 0 && flags.zero));
 	if (!flags.minus)
 		nb += ft_putwidth((long long)d, flags, (unsigned)d, flags.precision);
-	nb += write(flags.fd, "+", (d >= 0 && !flags.zero) ? flags.plus : 0);
+	nb += write(flags.fd, "+", (d >= 0 && !flags.zero) * flags.plus);
 	nb += write(flags.fd, "-", (d < 0 && !flags.zero));
 	nb += ft_putnbr_max(ft_abs((long long int)d), flags.fd);
 	a = (long long int)d;
-	d *= (d < 0) ? -1 : 1;
+	d = ft_abs(d);
 	d -= (long double)ft_abs(a);
-	nb += (flags.precision != 0 || flags.square) ? write(flags.fd, ".", 1) : 0;
+	if (flags.precision != 0 || flags.square)
+		nb += write(flags.fd, ".", 1);
 	nb += ft_putzeroes(1 + ft_fmod(d, 1), flags.precision, flags.fd);
 	d = (ft_fmod(d, 1)) * ft_pow(10, flags.precision);
-	nb += (!d) ? ft_repet_fd('0', flags.precision, flags.fd) : 0;
 	if ((int)(d * 10) % 10 >= 5)
 		d++;
 	if (flags.precision != 0 && d)
 		nb += ft_putnbr_max((long long int)d, flags.fd);
-	nb += (flags.minus) ? ft_putwidth(a, flags, (unsigned int)a,
-			flags.precision) : 0;
+	if (flags.minus)
+		nb += ft_putwidth(a, flags, (unsigned int)a, flags.precision);
 	return (nb);
 }
