@@ -6,7 +6,7 @@
 /*   By: ciglesia <ciglesia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/04 20:50:39 by ciglesia          #+#    #+#             */
-/*   Updated: 2021/07/01 19:25:20 by ciglesia         ###   ########.fr       */
+/*   Updated: 2021/07/01 21:11:56 by ciglesia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,27 @@ int	ft_fillzero(int p, t_flags flags, int i)
 			&& !flags.minus && flags.zero));
 }
 
+static int	calc_iszero(t_flags flags, int i, int iszero)
+{
+	int	ret;
+
+	ret = flags.width - i;
+	ret = ret - (flags.plus || flags.space) + (flags.type != 'f' && iszero);
+	return (ret);
+}
+
+static uintmax_t	calc_x(t_flags flags, intmax_t *lg, uintmax_t x, int *i)
+{
+	if (flags.type != 'u' && (*lg) < 0)
+		(*lg) *= -1;
+	x = (uintmax_t)(*lg);
+	if (!(*lg) && flags.type == 'u' && flags.precision != 0)
+		x = 1;
+	while (x != 0 && ++(*i))
+		x /= 10;
+	return (x);
+}
+
 /*
 ** ft_strrev.c: ft_repet
 ** zero flag: ignore if precision in diouxX or - flag
@@ -44,22 +65,19 @@ int	ft_putwidth(intmax_t lg, t_flags flags, uintmax_t x, int p)
 	iszero = (lg == 0 && p >= 0);
 	i = iszero;
 	neg = !((lg < 0 || flags.plus || flags.space) && flags.type != 'u');
-	neg = (flags.type == 'u' && flags.precision <= 0) ? 0 : neg;
-	if (flags.type != 'u' && lg < 0)
-		lg *= -1;
-	x = (lg == 0 && flags.type == 'u' && flags.precision != 0) ? 1 :
-		(uintmax_t)lg;
-	while (x != 0 && ++i)
-		x /= 10;
+	neg = !(flags.type == 'u' && flags.precision <= 0) * neg;
+	x = calc_x(flags, &lg, x, &i);
 	i += (flags.type == 'f' && (p != 0 || flags.square));
 	if (ft_countchr("csp", flags.type) != 0)
 		return (0);
-	i = (flags.type != 'f' && p > i) ? iszero : i;
-	iszero = (p >= 0) ? neg + u_width(flags, p, i, iszero)
-		: flags.width - i - (flags.plus || flags.space) + (flags.type != 'f'
-															&& iszero);
+	if (flags.type != 'f' && p > i)
+		i = iszero;
+	iszero = neg + u_width(flags, p, i, iszero);
+	if (p < 0)
+		iszero = calc_iszero(flags, i, iszero);
 	if (ft_fillzero(p, flags, i))
 		return (ft_repet_fd('0', iszero, flags.fd));
-	i = (p > i) ? p : i;
-	return (((flags.width - i) > 0) ? ft_repet_fd(' ', iszero, flags.fd) : 0);
+	if (p > i)
+		i = p;
+	return (ft_repet_fd(' ', iszero * ((flags.width - i) > 0), flags.fd));
 }

@@ -6,7 +6,7 @@
 /*   By: ciglesia <ciglesia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/05 00:04:45 by ciglesia          #+#    #+#             */
-/*   Updated: 2021/07/01 19:53:15 by ciglesia         ###   ########.fr       */
+/*   Updated: 2021/07/01 20:43:47 by ciglesia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,32 +48,33 @@ int	a_size(int i, unsigned long p, int *zeroes)
 	return (count - *zeroes);
 }
 
-int	ft_width(t_flags flags, int size, int npre)
+int	ft_width(t_flags flags, int size, int g)
 {
 	int	nb;
+	int	mprec;
 
 	nb = 0;
-	if (!flags.minus)
+	mprec = size;
+	if (flags.precision > size)
+		mprec = flags.precision;
+	if (!flags.minus && !size)
 	{
-		if (!size)
-		{
-			nb += ft_repet_fd(' ', flags.width - 3 + npre - flags.precision,
-					flags.fd);
-			return (nb + write(flags.fd, "0x0", 3 - npre) + ft_repet_fd('0',
-					flags.precision - 1, flags.fd));
-		}
-		return (ft_repet_fd(' ', flags.width - ((flags.precision > size)
-		? flags.precision : size) - flags.space - flags.plus - 2, flags.fd));
+		nb += ft_repet_fd(' ', flags.width - 3 + g - flags.precision, flags.fd);
+		return (nb + write(flags.fd, "0x0", 3 - g) + ft_repet_fd('0',
+				flags.precision - 1, flags.fd));
 	}
+	if (!flags.minus)
+		return (ft_repet_fd(' ', flags.width - mprec
+				- flags.space - flags.plus - 2, flags.fd));
 	if (!size)
 	{
-		nb += write(flags.fd, "0x0", 3 - npre)
+		nb += write(flags.fd, "0x0", 3 - g)
 			+ ft_repet_fd('0', flags.precision - 1, flags.fd);
-		return (nb + ft_repet_fd(' ', flags.width - 3 + npre - flags.precision,
+		return (nb + ft_repet_fd(' ', flags.width - 3 + g - flags.precision,
 				flags.fd));
 	}
-	return (nb + ft_repet_fd(' ', flags.width - ((flags.precision > size)
-		? flags.precision : size) - flags.space - flags.plus - 2, flags.fd));
+	return (nb + ft_repet_fd(' ', flags.width - mprec
+			- flags.space - flags.plus - 2, flags.fd));
 }
 
 int	ft_zero(t_flags flags, int size)
