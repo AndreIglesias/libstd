@@ -6,7 +6,7 @@
 /*   By: ciglesia <ciglesia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/05 16:37:42 by ciglesia          #+#    #+#             */
-/*   Updated: 2021/07/01 21:36:29 by ciglesia         ###   ########.fr       */
+/*   Updated: 2021/07/01 22:29:40 by ciglesia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,18 @@ int	print_di(t_flags flags, intmax_t nb, int npre, int d)
 		i += write(d, "-", (nb < 0 && flags.zero && !p));
 	}
 	if (!flags.minus)
-		i += ft_putwidth(nb, flags, (unsigned int)nb, (npre) ? -1 : p);
+		i += ft_putwidth(nb, flags, (unsigned int)nb, (!npre) * p - !(!npre));
 	if (ft_countchr("u%", flags.type) == 0)
-		i += write(d, "+", (nb >= 0 && (p || !flags.zero)) ? flags.plus : 0);
+		i += write(d, "+", (nb >= 0 && (p || !flags.zero)) * flags.plus);
 	if (ft_countchr("u%", flags.type) == 0)
 		i += write(d, "-", (nb < 0 && (!flags.zero || p)));
-	i += (p) ? ft_repet_fd('0', di_lenp(nb, flags), d) : 0;
+	i += ft_repet_fd('0', (p != 0) * di_lenp(nb, flags), d);
 	if (flags.type != '%' && (nb || !npre))
-		i += ft_putnbr_max((flags.type != 'u') ? ft_abs(nb) : nb, d);
+		i += ft_putnbr_max((flags.type != 'u') * ft_abs(nb)
+				+ ((flags.type == 'u') * nb), d);
 	i += write(d, "%", (flags.type == '%'));
 	if (flags.minus)
-		i += ft_putwidth(nb, flags, (unsigned int)nb, (npre) ? -1 : p);
+		i += ft_putwidth(nb, flags, (unsigned int)nb, (!npre) * p - !(!npre));
 	return (i);
 }
 
