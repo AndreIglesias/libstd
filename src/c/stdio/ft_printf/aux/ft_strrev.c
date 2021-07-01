@@ -6,19 +6,20 @@
 /*   By: ciglesia <ciglesia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 00:10:25 by ciglesia          #+#    #+#             */
-/*   Updated: 2020/08/25 17:15:48 by ciglesia         ###   ########.fr       */
+/*   Updated: 2021/07/01 19:36:36 by ciglesia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char		*ft_strrevf(char *str, int size)
+char	*ft_strrevf(char *str, int size)
 {
 	int		i;
 	char	temp;
 	char	*copy;
 
-	if (!(copy = (char*)malloc(sizeof(char) * (size + 1))))
+	copy = (char *)malloc(sizeof(char) * (size + 1));
+	if (!copy)
 		return (NULL);
 	ft_strcpy(copy, str);
 	i = 0;
@@ -36,9 +37,9 @@ char		*ft_strrevf(char *str, int size)
 	return (str);
 }
 
-int			put_wchar(char c, t_flags flags)
+int	put_wchar(char c, t_flags flags)
 {
-	int nb;
+	int	nb;
 
 	nb = 0;
 	if (!flags.minus && flags.width - 1 > 0)
@@ -49,7 +50,7 @@ int			put_wchar(char c, t_flags flags)
 	return (nb);
 }
 
-int			di_lenp(long long int lg, t_flags flags)
+int	di_lenp(long long int lg, t_flags flags)
 {
 	int				i;
 	int				p;
@@ -58,7 +59,7 @@ int			di_lenp(long long int lg, t_flags flags)
 
 	p = flags.precision;
 	i = 0;
-	iszero = (lg == 0) ? 1 : 0;
+	iszero = (lg == 0);
 	if (flags.type != 'u' && lg < 0)
 		lg *= -1;
 	x = (unsigned int)lg;

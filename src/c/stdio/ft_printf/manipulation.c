@@ -6,7 +6,7 @@
 /*   By: ciglesia <ciglesia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/04 02:04:42 by ciglesia          #+#    #+#             */
-/*   Updated: 2020/07/12 19:26:15 by ciglesia         ###   ########.fr       */
+/*   Updated: 2021/07/01 19:16:36 by ciglesia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@
 **		A precision of 0 means that no character is written for the value 0
 */
 
-int		thereis_flag(t_flags flags)
+int	thereis_flag(t_flags flags)
 {
 	return (flags.h || flags.hh || flags.ll || flags.l || flags.lo);
 }
@@ -61,7 +61,7 @@ int		thereis_flag(t_flags flags)
 ** printform.c: print_arg
 */
 
-int		manipulation(t_flags flags, va_list ap)
+int	manipulation(t_flags flags, va_list ap)
 {
 	if (ft_countchr("diouxX", flags.type) > 0 && flags.lo != 0)
 		return (0);

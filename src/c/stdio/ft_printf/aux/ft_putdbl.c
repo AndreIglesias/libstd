@@ -6,7 +6,7 @@
 /*   By: ciglesia <ciglesia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/05 03:22:40 by ciglesia          #+#    #+#             */
-/*   Updated: 2020/08/25 17:34:15 by ciglesia         ###   ########.fr       */
+/*   Updated: 2021/07/01 19:26:22 by ciglesia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 long double	ft_fmod(long double a, double b)
 {
-	double mod;
+	double	mod;
 
 	if (a < 0)
 		a *= -1;
@@ -30,7 +30,7 @@ long double	ft_fmod(long double a, double b)
 
 static int	ft_pow(int n, int xp)
 {
-	int a;
+	int	a;
 
 	a = 1;
 	while (xp > 0)
@@ -41,9 +41,9 @@ static int	ft_pow(int n, int xp)
 	return (a);
 }
 
-int			ft_putzeroes(long double nb, int precision, int fd)
+int	ft_putzeroes(long double nb, int precision, int fd)
 {
-	int zeroes;
+	int	zeroes;
 
 	nb *= ft_pow(10, precision);
 	zeroes = 0;
@@ -63,18 +63,18 @@ int			ft_putzeroes(long double nb, int precision, int fd)
 ** ft_put.c: ft_putwidth
 */
 
-int			ft_putdbl(long double d, t_flags flags)
+int	ft_putdbl(long double d, t_flags flags)
 {
 	int				nb;
 	long long int	a;
 
-	nb = write(flags.fd, " ", (d >= 0 && !flags.plus && flags.space) ? 1 : 0);
+	nb = write(flags.fd, " ", (d >= 0 && !flags.plus && flags.space));
 	nb += write(flags.fd, "+", (d >= 0 && flags.zero) ? flags.plus : 0);
-	nb += write(flags.fd, "-", (d < 0 && flags.zero) ? 1 : 0);
+	nb += write(flags.fd, "-", (d < 0 && flags.zero));
 	if (!flags.minus)
 		nb += ft_putwidth((long long)d, flags, (unsigned)d, flags.precision);
 	nb += write(flags.fd, "+", (d >= 0 && !flags.zero) ? flags.plus : 0);
-	nb += write(flags.fd, "-", (d < 0 && !flags.zero) ? 1 : 0);
+	nb += write(flags.fd, "-", (d < 0 && !flags.zero));
 	nb += ft_putnbr_max(ft_abs((long long int)d), flags.fd);
 	a = (long long int)d;
 	d *= (d < 0) ? -1 : 1;

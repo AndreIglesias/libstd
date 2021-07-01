@@ -6,81 +6,48 @@
 /*   By: ciglesia <ciglesia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/13 20:45:48 by ciglesia          #+#    #+#             */
-/*   Updated: 2021/06/14 21:21:49 by ciglesia         ###   ########.fr       */
+/*   Updated: 2021/07/01 19:09:01 by ciglesia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libstd.h"
 
-static int	size_number(int n)
+static int	ft_intlen(long nb)
 {
 	int	i;
 
 	i = 0;
-	while (n > 0)
+	while (nb != 0)
 	{
-		n /= 10;
+		nb /= 10;
 		i++;
 	}
 	return (i);
 }
 
-static int	expion(int n, int i, char *result)
+char	*ft_itoa(int nbr)
 {
-	if (n == 0)
-	{
-		result[i] = '0';
-		i++;
-	}
-	return (i);
-}
-
-static void	res(int i, int sign, char temp, char *result)
-{
-	while (i > sign)
-	{
-		temp = result[i];
-		result[i] = result[sign];
-		result[sign] = temp;
-		sign++;
-		i--;
-	}
-}
-
-static int	to_string(int n, char *result, int i, char *base)
-{
-	while (n != 0)
-	{
-		result[i] = base[ft_abs(n % 10)];
-		n /= 10;
-		i++;
-	}
-	return (i);
-}
-
-char	*ft_itoa(int n)
-{
-	int		sign;
-	char	*result;
-	char	*base;
+	long	nb;
+	int		len;
+	char	*str;
 	int		i;
-	char	temp;
+	int		sign;
 
-	base = "0123456789";
-	temp = (n == -2147483648) ? 'b' : '\0';
-	sign = (n < 0 && temp != 'b') ? -1 : 1;
-	n = (n < 0 && temp != 'b') ? -n : n;
-	result = malloc(sizeof(char) * (size_number(n) + 1));
-	if (!result)
-		return (NULL);
-	i = expion(n, 0, result);
-	i = to_string(n, result, i, base);
-	if (sign < 0 || temp == 'b')
+	nb = nbr;
+	len = ft_intlen(nb);
+	sign = 0;
+	if (nb < 0)
+		sign = 1;
+	str = (char *)malloc(sizeof(char) * (len + sign + 1));
+	i = len + sign;
+	while (i > 0)
 	{
-		result[i] = '-';
-		i++;
+		i--;
+		str[i] = (char)(ft_abs(nb % 10) + '0');
+		nb /= 10;
 	}
-	result[i] = '\0';
-	res(i - 1, 0, temp, result);
-	return (result);
+	if (sign)
+		str[0] = '-';
+	str[len + sign] = 0;
+	return (str);
 }

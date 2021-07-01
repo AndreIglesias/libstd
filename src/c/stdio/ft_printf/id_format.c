@@ -6,7 +6,7 @@
 /*   By: ciglesia <ciglesia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 01:21:29 by ciglesia          #+#    #+#             */
-/*   Updated: 2020/08/25 16:51:11 by ciglesia         ###   ########.fr       */
+/*   Updated: 2021/07/01 19:14:17 by ciglesia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,12 @@
 **	precision
 */
 
-int			is_conversion(const char c)
+int	is_conversion(const char c)
 {
 	return (ft_countchr("diouxXcspf%", c) > 0);
 }
 
-int			is_modifier(const char *format, int i)
+int	is_modifier(const char *format, int i)
 {
 	if (ft_countchr("hlL", format[i]) > 0)
 	{
@@ -42,14 +42,14 @@ int			is_modifier(const char *format, int i)
 	return (i);
 }
 
-int			is_flag(const char c)
+int	is_flag(const char c)
 {
 	return (ft_countchr("#0-+ ", c) > 0);
 }
 
-t_flags		init_flags(int i, int fd)
+t_flags	init_flags(int i, int fd)
 {
-	t_flags flags;
+	t_flags	flags;
 
 	flags.square = 0;
 	flags.zero = 0;
@@ -68,7 +68,7 @@ t_flags		init_flags(int i, int fd)
 	return (flags);
 }
 
-int			valid_conversion(const char *format, int i)
+int	valid_conversion(const char *format, int i)
 {
 	while (is_flag(format[i]))
 		i++;

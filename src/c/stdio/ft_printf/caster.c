@@ -6,7 +6,7 @@
 /*   By: ciglesia <ciglesia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 20:09:21 by ciglesia          #+#    #+#             */
-/*   Updated: 2020/07/19 18:20:35 by ciglesia         ###   ########.fr       */
+/*   Updated: 2021/07/01 19:13:42 by ciglesia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 intmax_t	get_int(t_flags flags, va_list ap)
 {
-	intmax_t x;
+	intmax_t	x;
 
 	if (flags.l)
 		return (va_arg(ap, long int));
@@ -25,13 +25,13 @@ intmax_t	get_int(t_flags flags, va_list ap)
 	if (flags.hh)
 		x = (signed char)x;
 	else if (flags.h)
-		return (short int)x;
+		return ((short int)x);
 	return (x);
 }
 
 uintmax_t	flags_uoxx(t_flags flags, va_list ap)
 {
-	uintmax_t x;
+	uintmax_t	x;
 
 	if (flags.l)
 		return (va_arg(ap, unsigned long int));

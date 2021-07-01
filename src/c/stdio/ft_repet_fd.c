@@ -6,7 +6,7 @@
 /*   By: ciglesia <ciglesia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 17:12:42 by ciglesia          #+#    #+#             */
-/*   Updated: 2021/06/15 13:25:27 by ciglesia         ###   ########.fr       */
+/*   Updated: 2021/07/01 19:11:27 by ciglesia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_repet_fd(char c, int i, const int fd)
 {
-	int nb;
+	int	nb;
 
 	nb = 0;
 	while (nb < i)

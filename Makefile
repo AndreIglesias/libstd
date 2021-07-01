@@ -6,7 +6,7 @@
 #    By: ciglesia <ciglesia@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/20 22:37:03 by ciglesia          #+#    #+#              #
-#    Updated: 2021/07/01 14:46:14 by ciglesia         ###   ########.fr        #
+#    Updated: 2021/07/01 20:17:17 by ciglesia         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -32,7 +32,7 @@ DIRPFA		=	$(DIRPF)/aux
 
 #***************** SRC ********************#
 
-SRCIO		=	ft_repet.c ft_putchar.c ft_putchar_fd.c ft_putnbr.c ft_putnbr_fd.c ft_putnbr_max.c ft_putstr_fd.c ft_putstr.c ft_puterr.c ft_repet_fd.c get_next_line.c get_next_line2.c
+SRCIO		=	ft_repet.c ft_putchar.c ft_putchar_fd.c ft_putnbr.c ft_putnbr_fd.c ft_putnbr_max.c ft_putstr_fd.c ft_putstr.c ft_puterr.c ft_repet_fd.c get_next_line.c
 SRCLIB		=	ft_abs.c ft_atoi.c ft_atoi_protected.c ft_itoa.c
 
 SRCPF		=	caster.c ft_printf.c ft_vfprintf.c id_format.c interpreter.c manipulation.c printform.c

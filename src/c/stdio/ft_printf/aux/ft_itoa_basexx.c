@@ -6,7 +6,7 @@
 /*   By: ciglesia <ciglesia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 13:11:20 by ciglesia          #+#    #+#             */
-/*   Updated: 2020/08/21 14:37:18 by ciglesia         ###   ########.fr       */
+/*   Updated: 2021/07/01 19:28:39 by ciglesia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	size_number(uintmax_t value, int base)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (value != 0)
@@ -43,20 +43,25 @@ static int	to_string(uintmax_t value, char *result, char *basee, int base)
 
 static void	create_base(int base, char *basee, int mayus)
 {
-	int i;
-	int upcase;
+	int	i;
+	int	upcase;
 
-	upcase = (mayus) ? 55 : 87;
+	upcase = 87;
+	if (mayus)
+		upcase = 55;
 	i = 0;
 	while (i < base)
 	{
-		basee[i] = (i > 9) ? i + upcase : i + 48;
+		if (i > 9)
+			basee[i] = i + upcase;
+		else
+			basee[i] = i + 48;
 		i++;
 	}
 	basee[i] = '\0';
 }
 
-char		*ft_itoa_basexx(uintmax_t value, int base, int mayus)
+char	*ft_itoa_basexx(uintmax_t value, int base, int mayus)
 {
 	char	*basee;
 	char	*result;
@@ -66,10 +71,11 @@ char		*ft_itoa_basexx(uintmax_t value, int base, int mayus)
 	{
 		if (value == 0)
 			return ("0");
-		basee = (char*)malloc(sizeof(char) * (base + 1));
+		basee = (char *)malloc(sizeof(char) * (base + 1));
 		create_base(base, basee, mayus);
 		i = size_number(value, base);
-		if (!(result = (char*)malloc(sizeof(char) * (i + 2))))
+		result = (char *)malloc(sizeof(char) * (i + 2));
+		if (!result)
 			return (0);
 		i = to_string(value, result, basee, base);
 		result[i] = '\0';

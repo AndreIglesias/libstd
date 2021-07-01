@@ -6,7 +6,7 @@
 /*   By: ciglesia <ciglesia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/05 16:37:42 by ciglesia          #+#    #+#             */
-/*   Updated: 2020/08/25 17:34:51 by ciglesia         ###   ########.fr       */
+/*   Updated: 2021/07/01 20:16:38 by ciglesia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,26 +20,26 @@
 int	print_di(t_flags flags, intmax_t nb, int npre, int d)
 {
 	int	i;
-	int p;
+	int	p;
 
 	i = 0;
 	p = flags.precision;
 	if (ft_countchr("u%", flags.type) == 0)
 	{
-		i += write(d, " ", (nb >= 0 && !flags.plus && flags.space) ? 1 : 0);
-		i += write(d, "+", (nb >= 0 && flags.zero && !p && flags.plus) ? 1 : 0);
-		i += write(d, "-", (nb < 0 && flags.zero && !p) ? 1 : 0);
+		i += write(d, " ", (nb >= 0 && !flags.plus && flags.space));
+		i += write(d, "+", (nb >= 0 && flags.zero && !p && flags.plus));
+		i += write(d, "-", (nb < 0 && flags.zero && !p));
 	}
 	if (!flags.minus)
 		i += ft_putwidth(nb, flags, (unsigned int)nb, (npre) ? -1 : p);
 	if (ft_countchr("u%", flags.type) == 0)
 		i += write(d, "+", (nb >= 0 && (p || !flags.zero)) ? flags.plus : 0);
 	if (ft_countchr("u%", flags.type) == 0)
-		i += write(d, "-", (nb < 0 && (!flags.zero || p)) ? 1 : 0);
+		i += write(d, "-", (nb < 0 && (!flags.zero || p)));
 	i += (p) ? ft_repet_fd('0', di_lenp(nb, flags), d) : 0;
 	if (flags.type != '%' && (nb || !npre))
 		i += ft_putnbr_max((flags.type != 'u') ? ft_abs(nb) : nb, d);
-	i += write(d, "%", (flags.type == '%') ? 1 : 0);
+	i += write(d, "%", (flags.type == '%'));
 	if (flags.minus)
 		i += ft_putwidth(nb, flags, (unsigned int)nb, (npre) ? -1 : p);
 	return (i);
@@ -47,15 +47,15 @@ int	print_di(t_flags flags, intmax_t nb, int npre, int d)
 
 int	ft_uoxx_w(t_flags flags, char *s, int q, int b)
 {
-	int n;
+	int	n;
 
 	n = flags.width - ft_strlen(s) -
 		((flags.type == 'o') ? b + flags.precision <= 0 && flags.square
 		: b * 2 * (ft_strcmp(s, "0") != 0)) - ((q > 0) ? q : 0);
-	n += (ft_strcmp(s, "0") == 0 && flags.precision == 0 &&
-		!(flags.square && flags.type == 'o'));
-	n += (ft_strcmp(s, "0") == 0 &&
-		flags.precision == -1 && flags.type == 'o');
+	n += (ft_strcmp(s, "0") == 0 && flags.precision == 0
+			&& !(flags.square && flags.type == 'o'));
+	n += (ft_strcmp(s, "0") == 0
+			&& flags.precision == -1 && flags.type == 'o');
 	return (n);
 }
 
@@ -76,25 +76,27 @@ int	print_uoxx(t_flags flags, va_list ap, int nb, int n)
 		b = (q > 0 && flags.type == 'o') ? 0 : flags.square;
 		n = ft_uoxx_w(flags, s, q, b);
 		nb += ft_putoxx(flags, s, n, b);
-		nb += (q > 0) ? ft_repet_fd('0', q, flags.fd) : 0;
+		if (q > 0)
+			nb += ft_repet_fd('0', q, flags.fd);
 		nb += (ft_strcmp(s, "0") == 0 && flags.precision == 0
 			&& !(flags.square && flags.type == 'o'))
 			? 0 : write(flags.fd, s, ft_strlen(s));
-		nb += (flags.minus) ? ft_repet_fd(' ', n, flags.fd) : 0;
+		if (flags.minus)
+			nb += ft_repet_fd(' ', n, flags.fd);
 		if (ft_strcmp(s, "0") != 0)
 			free(s);
 		return (nb);
 	}
 	return (print_di(flags, flags_uoxx(flags, ap),
-					flags.precision == 0, flags.fd));
+			flags.precision == 0, flags.fd));
 }
 
 int	put_wstr(char *str, t_flags flags)
 {
-	int i;
-	int w;
-	int nb;
-	int p;
+	int	i;
+	int	w;
+	int	nb;
+	int	p;
 
 	i = 0;
 	nb = 0;
@@ -123,27 +125,28 @@ int	put_wstr(char *str, t_flags flags)
 
 int	print_arg(t_flags flags, va_list ap)
 {
-	int npr;
+	int	npr;
 
 	if (flags.type == 'f')
 	{
-		flags.precision = (flags.precision >= 0) ? flags.precision : 6;
-		return (ft_putdbl((flags.lo) ? va_arg(ap, long double)
-				: va_arg(ap, double), flags));
+		flags.precision = 6 + ((-6 + flags.precision) * (flags.precision >= 0));
+		if (flags.lo)
+			return (ft_putdbl(va_arg(ap, long double), flags));
+		return (ft_putdbl(va_arg(ap, double), flags));
 	}
 	if (flags.type == 's')
-		return (put_wstr(va_arg(ap, char*), flags));
+		return (put_wstr(va_arg(ap, char *), flags));
 	npr = (flags.precision == 0);
 	flags.precision = (flags.precision > 0 || ft_countchr("uoxX", flags.type))
-		? flags.precision : 0;
+		* flags.precision;
 	if (flags.type == 'd' || flags.type == 'i')
 		return (print_di(flags, get_int(flags, ap), npr, flags.fd));
 	if (flags.type == 'c')
 		return (put_wchar((char)va_arg(ap, int), flags));
 	if (flags.type == 'p')
-		return (print_address((unsigned long)va_arg(ap, void*), flags, 0, npr));
+		return (print_address((t_u_long)va_arg(ap, void *), flags, 0, npr));
 	if (ft_countchr("uoxX", flags.type) > 0)
-		return (print_uoxx(flags, ap, 0, (flags.type == 'o') ? 8 : 16));
+		return (print_uoxx(flags, ap, 0, 8 + (8 * (flags.type != 'o'))));
 	if (flags.type == '%')
 		return (print_di(flags, 0, npr, flags.fd));
 	return (0);

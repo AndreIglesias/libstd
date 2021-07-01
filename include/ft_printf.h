@@ -6,7 +6,7 @@
 /*   By: ciglesia <ciglesia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/28 17:41:34 by ciglesia          #+#    #+#             */
-/*   Updated: 2021/06/30 23:39:41 by ciglesia         ###   ########.fr       */
+/*   Updated: 2021/07/01 19:05:05 by ciglesia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,14 @@
 # include "libstd.h"
 # include "libstring.h"
 
-# define PRINTF_TYPE(x) _Generic((x), char: "%c", signed char: "%hhd", \
-    unsigned char: "%hhu", signed short: "%hd", unsigned short: "%hu", \
-    signed int: "%d", unsigned int: "%u", long int: "%ld", \
-    unsigned long int: "%lu", long long int: "%lld", \
-    unsigned long long int: "%llu", float: "%f", double: "%f", \
-    long double: "%Lf", char *: "%s", void *: "%p")
+/*
+**# define PRINTF_TYPE(x) _Generic((x), char: "%c", signed char: "%hhd", \
+**    unsigned char: "%hhu", signed short: "%hd", unsigned short: "%hu", \
+**    signed int: "%d", unsigned int: "%u", long int: "%ld",			\
+**   unsigned long int: "%lu", long long int: "%lld",					\
+**  unsigned long long int: "%llu", float: "%f", double: "%f",			\
+**  long double: "%Lf", char *: "%s", void *: "%p")
+*/
 
 /*
 **  # 0 + - <space>

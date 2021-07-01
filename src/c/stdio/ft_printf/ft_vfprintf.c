@@ -6,7 +6,7 @@
 /*   By: ciglesia <ciglesia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/31 15:34:38 by ciglesia          #+#    #+#             */
-/*   Updated: 2020/08/25 16:50:34 by ciglesia         ###   ########.fr       */
+/*   Updated: 2021/07/01 19:12:41 by ciglesia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@
 ** interpreter.c: ft_flags, no_flags, ft_modifiers
 */
 
-t_flags		interpret(const char *format, int i, int fd)
+t_flags	interpret(const char *format, int i, int fd)
 {
-	t_flags flags;
+	t_flags	flags;
 
 	flags = init_flags(i, fd);
 	flags = ft_flags(format, flags);
@@ -42,9 +42,9 @@ t_flags		interpret(const char *format, int i, int fd)
 ** manipulation.c: manipulation
 */
 
-int			vprint(const char *format, t_fdi fdi, va_list ap, int *res)
+int	vprint(const char *format, t_fdi fdi, va_list ap, int *res)
 {
-	t_flags flags;
+	t_flags	flags;
 
 	if ((valid_conversion(format, fdi.i)) ? 1 : 0)
 	{
@@ -56,7 +56,7 @@ int			vprint(const char *format, t_fdi fdi, va_list ap, int *res)
 	return (fdi.i);
 }
 
-int			ft_vfprintf(const char *format, va_list ap, int fd)
+int	ft_vfprintf(const char *format, va_list ap, int fd)
 {
 	int		i;
 	int		res;

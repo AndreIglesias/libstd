@@ -6,7 +6,7 @@
 /*   By: ciglesia <ciglesia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/03 02:25:56 by ciglesia          #+#    #+#             */
-/*   Updated: 2020/07/12 19:24:51 by ciglesia         ###   ########.fr       */
+/*   Updated: 2021/07/01 19:16:20 by ciglesia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_flags	ft_flags(const char *format, t_flags flags)
 {
-	int i;
+	int	i;
 
 	i = flags.i - 1;
 	while (is_flag(format[++i]))
@@ -44,7 +44,7 @@ t_flags	ft_modifiers(const char *format, t_flags flags, int i)
 				flags.ll = 1;
 			else
 				flags.l = 1;
-			i = (format[i + 1] && format[i + 1] == 'l') ? i + 1 : i;
+			i += (format[i + 1] && format[i + 1] == 'l');
 		}
 		if (format[i] == 'h')
 		{
@@ -65,7 +65,7 @@ t_flags	ft_modifiers(const char *format, t_flags flags, int i)
 
 t_flags	no_flags(const char *format, t_flags flags)
 {
-	int i;
+	int	i;
 
 	i = flags.i;
 	flags.width = ft_atoi(&format[i]);
@@ -84,9 +84,8 @@ t_flags	no_flags(const char *format, t_flags flags)
 
 void	manage_exceptions(t_flags *flags)
 {
-	if ((*flags).zero &&
-		(((*flags).precision > 0 && ft_countchr("diouxX", (*flags).type) > 0)
-		|| (*flags).minus))
+	if ((*flags).zero && (((*flags).precision > 0
+				&& ft_countchr("diouxX", (*flags).type) > 0) || (*flags).minus))
 		(*flags).zero = 0;
 	if ((*flags).space && (*flags).plus)
 		(*flags).space = 0;
