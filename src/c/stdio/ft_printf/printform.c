@@ -6,7 +6,7 @@
 /*   By: ciglesia <ciglesia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/05 16:37:42 by ciglesia          #+#    #+#             */
-/*   Updated: 2021/07/01 20:23:33 by ciglesia         ###   ########.fr       */
+/*   Updated: 2021/07/01 21:36:29 by ciglesia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,12 @@ int	print_di(t_flags flags, intmax_t nb, int npre, int d)
 int	ft_uoxx_w(t_flags flags, char *s, int q, int b)
 {
 	int	n;
+	int	oo;
 
-	n = flags.width - ft_strlen(s) -
-		((flags.type == 'o') ? b + flags.precision <= 0 && flags.square
-		: b * 2 * (ft_strcmp(s, "0") != 0)) - ((q > 0) ? q : 0);
+	oo = b * 2 * (ft_strcmp(s, "0") != 0);
+	if (flags.type == 'o')
+		oo = b + flags.precision <= 0 && flags.square;
+	n = flags.width - ft_strlen(s) - oo - ((q > 0) * q);
 	n += (ft_strcmp(s, "0") == 0 && flags.precision == 0
 			&& !(flags.square && flags.type == 'o'));
 	n += (ft_strcmp(s, "0") == 0
@@ -68,19 +70,20 @@ int	print_uoxx(t_flags flags, va_list ap, int nb, int n)
 	char	*s;
 	int		b;
 	int		q;
+	int		con;
 
 	if (flags.type == 'o' || flags.type == 'x' || flags.type == 'X')
 	{
 		s = ft_itoa_basexx(flags_uoxx(flags, ap), n, (flags.type == 'X'));
 		q = flags.precision - ft_strlen(s);
-		b = (q > 0 && flags.type == 'o') ? 0 : flags.square;
+		b = !(q > 0 && flags.type == 'o') * flags.square;
 		n = ft_uoxx_w(flags, s, q, b);
 		nb += ft_putoxx(flags, s, n, b);
 		if (q > 0)
 			nb += ft_repet_fd('0', q, flags.fd);
-		nb += (ft_strcmp(s, "0") == 0 && flags.precision == 0
-			&& !(flags.square && flags.type == 'o'))
-			? 0 : write(flags.fd, s, ft_strlen(s));
+		con = (!(!ft_strcmp(s, "0") && !flags.precision
+					&& !(flags.square && flags.type == 'o')));
+		nb += write(flags.fd, s, ft_strlen(s) * con);
 		if (flags.minus)
 			nb += ft_repet_fd(' ', n, flags.fd);
 		if (ft_strcmp(s, "0") != 0)
@@ -91,7 +94,7 @@ int	print_uoxx(t_flags flags, va_list ap, int nb, int n)
 			flags.precision == 0, flags.fd));
 }
 
-int	put_wstr(char *str, t_flags flags)
+int	put_wstr(char *str, t_flags flags, int xp)
 {
 	int	i;
 	int	w;
@@ -102,19 +105,17 @@ int	put_wstr(char *str, t_flags flags)
 	nb = 0;
 	if (!str)
 		str = "(null)";
-	p = (str) ? flags.precision : 6;
+	p = flags.precision;
 	w = flags.width;
-	i = (str) ? ft_strlen(str) : 6;
-	if (!flags.minus && w - ((p < i && p >= 0) ? p : i) > 0)
-		nb += ft_repet_fd(' ', w -
-						((p < i && p >= 0) ? flags.precision : i), flags.fd);
-	if (str)
-		nb += write(flags.fd, str, (p < i && p >= 0) ? p : i);
-	else
-		nb += write(flags.fd, (flags.precision < 0 || flags.precision > 5) ?
-			"(null)" : "      ", 6);
-	if (flags.minus && w - ((p < i && p >= 0) ? p : i) > 0)
-		nb += ft_repet_fd(' ', w - ((p < i && p >= 0) ? p : i), flags.fd);
+	i = ft_strlen(str);
+	xp = i;
+	if (p < i && p >= 0)
+		xp = p;
+	if (!flags.minus && w - (xp) > 0)
+		nb += ft_repet_fd(' ', w - (xp), flags.fd);
+	nb += write(flags.fd, str, xp);
+	if (flags.minus && w - (xp) > 0)
+		nb += ft_repet_fd(' ', w - (xp), flags.fd);
 	return (nb);
 }
 
@@ -127,16 +128,14 @@ int	print_arg(t_flags flags, va_list ap)
 {
 	int	npr;
 
-	if (flags.type == 'f')
-	{
-		if (flags.precision < 0)
-			flags.precision = 6;
-		if (flags.lo)
-			return (ft_putdbl(va_arg(ap, long double), flags));
+	if (flags.type == 'f' && flags.precision < 0)
+		flags.precision = 6;
+	if (flags.type == 'f' && flags.lo)
+		return (ft_putdbl(va_arg(ap, long double), flags));
+	if (flags.type == 'f' && !flags.lo)
 		return (ft_putdbl(va_arg(ap, double), flags));
-	}
 	if (flags.type == 's')
-		return (put_wstr(va_arg(ap, char *), flags));
+		return (put_wstr(va_arg(ap, char *), flags, 0));
 	npr = (flags.precision == 0);
 	flags.precision = (flags.precision > 0 || ft_countchr("uoxX", flags.type))
 		* flags.precision;
