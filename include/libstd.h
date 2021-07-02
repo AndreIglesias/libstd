@@ -6,7 +6,7 @@
 /*   By: ciglesia <ciglesia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 18:51:02 by ciglesia          #+#    #+#             */
-/*   Updated: 2021/07/01 17:01:59 by ciglesia         ###   ########.fr       */
+/*   Updated: 2021/07/02 18:03:46 by ciglesia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@
 */
 
 # define BUFF_SIZE 6
+#define	EXIT_FAILURE 1
+#define	EXIT_SUCCESS 0
 
 # define BOLD "\e[1m"
 # define DIM "\e[2m"
@@ -100,6 +102,7 @@ t_intmax_t	ft_abs(t_intmax_t x);
 int			ft_atoi(const char *str);
 int			ft_atoi_protected(const char *str);
 char		*ft_itoa(int n);
+void		*ft_calloc(size_t nmemb, size_t size);
 
 /*
 **		other
