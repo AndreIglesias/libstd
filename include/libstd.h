@@ -6,7 +6,7 @@
 /*   By: ciglesia <ciglesia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 18:51:02 by ciglesia          #+#    #+#             */
-/*   Updated: 2021/07/03 12:23:38 by ciglesia         ###   ########.fr       */
+/*   Updated: 2021/07/09 23:38:01 by ciglesia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ int			get_next_line2(const int fd, char **line, char **pitcher);
 **		stdlib
 */
 
+size_t		ft_sizei(size_t nb);
 t_intmax_t	ft_abs(t_intmax_t x);
 int			ft_atoi(const char *str);
 int			ft_atoi_protected(const char *str);
