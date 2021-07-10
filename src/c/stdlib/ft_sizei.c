@@ -6,7 +6,7 @@
 /*   By: ciglesia <ciglesia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/13 22:38:55 by ciglesia          #+#    #+#             */
-/*   Updated: 2021/07/09 23:37:35 by ciglesia         ###   ########.fr       */
+/*   Updated: 2021/07/11 00:39:08 by ciglesia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 size_t	ft_sizei(size_t nb)
 {
-	int i;
+	int	i;
 
 	if (nb == 0)
 		return (1);
